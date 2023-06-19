@@ -3,6 +3,7 @@ package com.example.eventorganizer.task;
 import com.example.eventorganizer.event.Event;
 import com.example.eventorganizer.user.User;
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
