@@ -16,9 +16,9 @@ public class Task {
     @ManyToOne
     private User user;
     @Enumerated(EnumType.STRING)
-    private State state;
+    private TaskState state;
 
-    public Task(String name,State state){
+    public Task(String name,TaskState state){
         this.name = name;
         this.state = state;
     }
