@@ -18,7 +18,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskState state;
 
-    public Task(String name, TaskState state){
+
+    public Task(String name,TaskState state){
         this.name = name;
         this.state = state;
     }
