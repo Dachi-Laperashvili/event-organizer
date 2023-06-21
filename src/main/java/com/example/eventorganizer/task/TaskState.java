@@ -1,5 +1,5 @@
 package com.example.eventorganizer.task;
-public enum State {
+public enum TaskState  {
     UNASSIGNED,
     IN_PROGRESS,
     CLOSED
