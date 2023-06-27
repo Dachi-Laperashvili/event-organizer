@@ -15,8 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig {
-    private final UserService userService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -37,7 +35,7 @@ public class WebSecurityConfig {
         return http.build();
     }
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider(UserService userService,BCryptPasswordEncoder bCryptPasswordEncoder){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
         provider.setUserDetailsService(userService);
