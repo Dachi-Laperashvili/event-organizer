@@ -83,9 +83,6 @@
         .error{
             color:red;
         }
-        .logout{
-            color:cornflowerblue;
-        }
     </style>
 </head>
 <body>
@@ -98,10 +95,6 @@
                 password.</div>
         </div>
 
-        <!-- logout message -->
-        <div th:if="${param.logout}">
-            <div class="logout">You have been logged out.</div>
-        </div>
         <div class="input-parent">
             <label for="username">Email:</label>
             <input type="text" id="username" name="username" placeholder="Enter Your Email Address" autofocus="autofocus" required>

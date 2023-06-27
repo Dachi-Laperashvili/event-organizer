@@ -22,9 +22,18 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/","/registration").permitAll()
-                                .anyRequest().authenticated())
-                .formLogin(login -> login.loginPage("/login").permitAll());
+                        auth.requestMatchers("/", "/registration").
+                                permitAll()
+                                .anyRequest().
+                                authenticated())
+
+                .formLogin(login -> login.
+                        loginPage("/login").
+                        permitAll())
+
+                .logout(logout -> logout.
+                        logoutUrl("/logout").
+                        logoutSuccessUrl("/login") );
         return http.build();
     }
     @Bean
