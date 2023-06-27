@@ -13,7 +13,7 @@ public class RegistrationService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public String register(RegistrationRequest request){
+    public User register(RegistrationRequest request){
         User user = new User(
                 request.getFirstName(),
                 request.getLastName(),
@@ -23,6 +23,6 @@ public class RegistrationService {
         );
 
         userRepository.save(user);
-        return "Registration successful";
+        return user;
     }
 }
