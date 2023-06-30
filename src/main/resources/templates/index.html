@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Organizer</title>
+</head>
+<body>
+<div>
+  <header>
+    <nav id="nav-bar">
+      <ul>
+        <li>
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li>
+          <a class="nav-link" th:href="@{/home/createEvent}">Create Event</a>
+        </li>
+        <li>
+          <a class="nav-link" href="#all">See Events</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <section id="about">
+    <h1 class="header">about</h1>
+    <div class="about-info">Event organizer application, which lets some group of people organize an event.</div>
+  </section>
+  <section id="all">
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>Create An Event</title>
+</head>
+<body>
+<div class = "container">
+    <form id="main" th:action="@{/home/createEvent}" method="post">
+        <h1> Create An Event:</h1>
+        <div class="input-parent">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Event Name" autofocus="autofocus" required>
+        </div>
+        <div class="input-parent">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" placeholder="Event Description" required>
+        </div>
+        <button type="submit">CREATE</button>
+    </form>
+</div>
+</body>
+</html>
