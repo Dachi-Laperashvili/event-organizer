@@ -1,6 +1,5 @@
 package com.example.eventorganizer.event;
 
-import com.example.eventorganizer.user.User;
 import lombok.*;
 
 @Getter
