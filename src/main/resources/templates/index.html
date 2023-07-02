@@ -56,6 +56,27 @@
       text-align: center;
       margin-bottom: 20px;
     }
+    #logout-btn {
+      position: absolute;
+      bottom: 2%;
+      left: 90%;
+      border: none;
+      padding: 1% 1.5%;
+      background-color: teal;
+      color: #f0fff0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #logout-btn:hover {
+      background-color: #d83c41;
+    }
+    @media (max-width: 800px) {
+      #logout-btn {
+        left: 30%;
+        width: 40%;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -80,8 +101,9 @@
     <h1 class="header">about</h1>
     <div class="about-info">Event organizer application, which lets some group of people organize an event.</div>
   </section>
-  <section id="all">
-  </section>
+  <div>
+    <button id="logout-btn"><a th:href="@{/logout}">Logout</a></button>
+  </div>
 </div>
 </body>
 </html>
