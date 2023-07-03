@@ -16,9 +16,9 @@ public class EventService {
     private UserRepository userRepository;
     public Event create(EventDTO dto){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String email = authentication.getName();
 
-        User user = userRepository.findByFirstName(username);
+        User user = userRepository.findByEmail(email);
         Event event = new Event(
                 dto.getName(),
                 dto.getDescription(),
@@ -32,9 +32,10 @@ public class EventService {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found."));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String email = authentication.getName();
+        System.out.println(email);
 
-        User admin = userRepository.findByFirstName(username);
+        User admin = userRepository.findByEmail(email);
 
         if (admin == null || event.getAdmin() == null) {
             return "Only admin can add users to the event.";

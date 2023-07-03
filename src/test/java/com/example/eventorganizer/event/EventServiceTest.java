@@ -35,15 +35,15 @@ public class EventServiceTest {
 
     @Test
     public void testCreateEvent() {
-        String username = "John";
+        String email = "john.doe@gmail.com";
 
         Authentication authentication = mock(Authentication.class);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        when(authentication.getName()).thenReturn(username);
+        when(authentication.getName()).thenReturn(email);
 
         User user = new User();
-        user.setFirstName(username);
-        when(userRepository.findByFirstName(username)).thenReturn(user);
+        user.setEmail(email);
+        when(userRepository.findByEmail(email)).thenReturn(user);
 
         EventDTO dto = new EventDTO("Pizza Party", "birthday event");
 
@@ -55,7 +55,7 @@ public class EventServiceTest {
         assertEquals("birthday event", event.getDescription());
         assertEquals(user, event.getAdmin());
 
-        verify(userRepository).findByFirstName(username);
+        verify(userRepository).findByEmail(email);
     }
     @Test
     public void testEventNotFoundException(){
@@ -75,7 +75,7 @@ public class EventServiceTest {
     public void testAddUserWhenNonAdminTriesIt(){
         Long userId = 1L;
         Long eventId = 1L;
-        String nonAdminUsername = "nonadmin";
+        String nonAdminEmail = "example@gmail.com";
         User nonAdmin = new User("Non","Admin","example@gmail.com","password",UserRole.USER);
         User Admin = new User("Admin","User","admin@gmail.com","adminPassword",UserRole.ADMIN);
         Event event = new Event("Event","first event",Admin);
@@ -84,7 +84,7 @@ public class EventServiceTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(nonAdmin));
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
-        when(authentication.getName()).thenReturn(nonAdminUsername);
+        when(authentication.getName()).thenReturn(nonAdminEmail);
 
         String errorMessage = eventService.addUser(userId, eventId);
 
