@@ -29,7 +29,6 @@ public class Event {
     }
 
     public Event(){}
-
     public void addUser(User user){
             users.add(user);
     }

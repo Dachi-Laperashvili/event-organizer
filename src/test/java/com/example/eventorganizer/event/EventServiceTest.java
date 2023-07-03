@@ -3,8 +3,11 @@ package com.example.eventorganizer.event;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.example.eventorganizer.exceptions.EventNotFoundException;
+import com.example.eventorganizer.exceptions.UserNotFoundException;
 import com.example.eventorganizer.user.User;
 import com.example.eventorganizer.user.UserRepository;
+import com.example.eventorganizer.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +16,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Optional;
+
 public class EventServiceTest {
 
     @Mock
@@ -20,7 +25,6 @@ public class EventServiceTest {
 
     @Mock
     private EventRepository eventRepository;
-
     @InjectMocks
     private EventService eventService;
 
@@ -52,5 +56,38 @@ public class EventServiceTest {
         assertEquals(user, event.getAdmin());
 
         verify(userRepository).findByFirstName(username);
+    }
+    @Test
+    public void testEventNotFoundException(){
+        String errorMessage = "Only admin can add users to the event.";
+        EventNotFoundException eventNotFoundException = new EventNotFoundException(errorMessage);
+
+        assertEquals(errorMessage,eventNotFoundException.getMessage());
+    }
+    @Test
+    public void testUserNotFoundException(){
+        String errorMessage = "User not found.";
+        UserNotFoundException userNotFoundException = new UserNotFoundException(errorMessage);
+
+        assertEquals(errorMessage,userNotFoundException.getMessage());
+    }
+    @Test
+    public void testAddUserWhenNonAdminTriesIt(){
+        Long userId = 1L;
+        Long eventId = 1L;
+        String nonAdminUsername = "nonadmin";
+        User nonAdmin = new User("Non","Admin","example@gmail.com","password",UserRole.USER);
+        User Admin = new User("Admin","User","admin@gmail.com","adminPassword",UserRole.ADMIN);
+        Event event = new Event("Event","first event",Admin);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(nonAdmin));
+        when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
+        when(authentication.getName()).thenReturn(nonAdminUsername);
+
+        String errorMessage = eventService.addUser(userId, eventId);
+
+        assertEquals("Only admin can add users to the event.", errorMessage);
     }
 }

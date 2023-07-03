@@ -36,6 +36,10 @@ public class EventService {
 
         User admin = userRepository.findByFirstName(username);
 
+        if (admin == null || event.getAdmin() == null) {
+            return "Only admin can add users to the event.";
+        }
+
         if(!event.getAdmin().getId().equals(admin.getId())) {
             return "Only admin can add users to the event.";
         }
