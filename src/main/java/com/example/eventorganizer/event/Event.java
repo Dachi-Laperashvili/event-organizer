@@ -3,12 +3,14 @@ package com.example.eventorganizer.event;
 import com.example.eventorganizer.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "events")
 public class Event {
     @Id
@@ -18,7 +20,7 @@ public class Event {
     private String description;
     @ManyToOne
     private User admin;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
     public Event(String name,String description,User admin){
         this.name = name;
@@ -28,4 +30,7 @@ public class Event {
 
     public Event(){}
 
+    public void addUser(User user){
+            users.add(user);
+    }
 }

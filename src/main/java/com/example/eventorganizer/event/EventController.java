@@ -2,6 +2,7 @@ package com.example.eventorganizer.event;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @AllArgsConstructor
 public class EventController {
-    private final EventService eventService;
+    private EventService eventService;
     private EventRepository eventRepository;
     @RequestMapping(value = "/home/createEvent")
     public String createEvent(){
@@ -19,7 +20,7 @@ public class EventController {
     }
     @PostMapping(path="/home/createEvent")
     public String createEvent(@RequestParam("name") String name,
-                             @RequestParam("description") String description){
+                              @RequestParam("description") String description){
 
         EventDTO dto = new EventDTO(name, description);
         eventService.create(dto);
@@ -30,5 +31,17 @@ public class EventController {
         ModelAndView mav = new ModelAndView("listEvents");
         mav.addObject("events",eventRepository.findAll());
         return mav;
+    }
+
+    @PostMapping(path="/home/inviteUser")
+    public String inviteUser(@RequestParam("userId") Long userId,
+                             @RequestParam("eventId") Long eventId,
+                             Model model) {
+        String errorMessage = eventService.addUser(userId, eventId);
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+            return "createEvent";
+        }
+        return eventService.addUser(userId, eventId);
     }
 }

@@ -54,6 +54,9 @@
             text-decoration: none;
             color:#fff;
         }
+        .participants{
+            list-style:none;
+        }
         @media(max-width:600px) {
             .logo{
                 display:none;
@@ -90,6 +93,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Admin</th>
+            <th>Participants</th>
         </tr>
         </thead>
         <tbody>
@@ -98,6 +102,11 @@
             <td th:text="${event.name}" />
             <td th:text="${event.description}" />
             <td th:text="${event.admin.getFirstName() + ' ' + event.admin.getLastName()}" />
+            <td>
+                <ul class="participants">
+                    <li th:each="user: ${event.users}" th:text="${user.firstName + ' ' + user.lastName}"></li>
+                </ul>
+            </td>
         </tr>
         </tbody>
 

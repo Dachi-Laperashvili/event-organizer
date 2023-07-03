@@ -1,6 +1,6 @@
 package com.example.eventorganizer.event;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.example.eventorganizer.user.User;
