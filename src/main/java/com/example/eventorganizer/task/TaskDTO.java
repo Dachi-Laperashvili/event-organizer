@@ -5,11 +5,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class TaskDTO {
     private String name;
-    public TaskState state;
+    private TaskState state;
+    private BigDecimal spentMoney;
+
 }

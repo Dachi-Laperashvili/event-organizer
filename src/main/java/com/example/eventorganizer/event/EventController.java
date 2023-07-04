@@ -1,19 +1,26 @@
 package com.example.eventorganizer.event;
 
+import com.example.eventorganizer.exceptions.EventNotFoundException;
+import com.example.eventorganizer.task.Task;
+import com.example.eventorganizer.task.TaskRepository;
+import com.example.eventorganizer.user.User;
+import com.example.eventorganizer.user.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class EventController {
     private EventService eventService;
     private EventRepository eventRepository;
+    private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+
     @RequestMapping(value = "/home/createEvent")
     public String createEvent(){
         return "createEvent";
@@ -43,5 +50,15 @@ public class EventController {
             return "createEvent";
         }
         return eventService.addUser(userId, eventId);
+    }
+    @RequestMapping("/event/{eventId}")
+    public String showEvent(@PathVariable("eventId") Long eventId, Model model){
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event Not Found!"));
+
+        List<Task> tasks = taskRepository.findByEvent(event);
+
+        model.addAttribute("event",event);
+        model.addAttribute("tasks",tasks);
+        return "event"; // event.html file
     }
 }

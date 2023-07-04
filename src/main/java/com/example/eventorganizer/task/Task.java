@@ -25,10 +25,12 @@ public class Task {
     private TaskState state;
     private BigDecimal spentMoney;
 
-    public Task(String name,TaskState state,Event event){
+    public Task(String name,TaskState state,Event event,User user,BigDecimal spentMoney){
         this.name = name;
         this.state = state;
         this.event = event;
+        this.user=user;
+        this.spentMoney = spentMoney;
     }
     public Task(){}
 }
