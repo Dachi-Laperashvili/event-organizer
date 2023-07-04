@@ -23,7 +23,7 @@ public class Event {
     private User admin;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
-    @OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event",fetch = FetchType.EAGER)
     private Set<Task> tasks = new HashSet<>();
     public Event(String name,String description,User admin){
         this.name = name;

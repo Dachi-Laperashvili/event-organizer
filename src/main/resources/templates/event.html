@@ -65,7 +65,7 @@
         .p-description{
             text-align:center;
         }
-        #back-btn {
+        #task-btn {
             position: absolute;
             bottom: 2%;
             left: 90%;
@@ -76,11 +76,18 @@
             cursor: pointer;
             font-weight: bold;
         }
-        #back-btn:hover {
+        #task-btn:hover {
             background-color: #d83c41;
         }
+        #modal{
+            display:none;
+            width: max-content;
+            margin: 40px auto;
+            font-family: "Segoe UI", sans-serif;
+            padding: 25px 28px;
+        }
         @media (max-width: 800px) {
-            #back-btn {
+            #task-btn {
                 left: 30%;
                 width: 40%;
             }
@@ -141,16 +148,53 @@
         </thead>
         <tbody>
         <tr th:each="task:${tasks}">
-            <td th:text="${task.name}"></td>
-            <td th:text="${task.user.getFirstName() + ' ' + task.user.getLastName()}"></td>
-            <td th:text="${task.state}"></td>
-            <td th:text="${task.spentMoney}"></td>
+            <td th:text="${task.getName()}"></td>
+            <td th:text="${task.getUser().getFirstName() + ' ' + task.getUser().getLastName()}"></td>
+            <td th:text="${task.getState()}"></td>
+            <td th:text="${task.getSpentMoney()}"></td>
         </tr>
         </tbody>
     </table>
     <div>
-        <button id="back-btn"><a th:href="@{/home/seeAll}">Go Back</a></button>
+        <div id="modal">
+            <form id="main" th:action="@{'/event/' + ${event.id} + '/createTask'}" method="post">
+                <h1> Create Task:</h1>
+                <div class="input-parent">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Task Name" autofocus="autofocus" required>
+                </div>
+                <div class="input-parent">
+                    <label for="state">Task State:
+                    <select id="state" name="state">
+                        <option value="UNASSIGNED">UNASSIGNED</option>
+                        <option value="IN_PROGRESS">IN_PROGRESS</option>
+                        <option value="CLOSED">CLOSED</option>
+                    </select>
+                    </label>
+                </div>
+                <div class="input-parent">
+                    <label for="money">Money Spent:</label>
+                    <input type="number" id="money" name="money" placeholder="Enter How much money you have spent/will spent for this task:" autofocus="autofocus" required>
+                </div>
+                <div>
+                    <button id="confirmBtn" type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+        <button id="task-btn">Add Task</button>
     </div>
 </div>
+<script>
+    let modal = document.getElementById("modal");
+    let btn = document.getElementById("task-btn");
+
+    btn.addEventListener('click', function() {
+        if (modal.style.display === "block") {
+            modal.style.display = "none";
+        } else {
+            modal.style.display = "block";
+        }
+    });
+</script>
 </body>
 </html>
