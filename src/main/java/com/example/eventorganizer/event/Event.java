@@ -1,5 +1,6 @@
 package com.example.eventorganizer.event;
 
+import com.example.eventorganizer.task.Task;
 import com.example.eventorganizer.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,6 +23,8 @@ public class Event {
     private User admin;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
+    private Set<Task> tasks = new HashSet<>();
     public Event(String name,String description,User admin){
         this.name = name;
         this.description = description;
@@ -31,5 +34,8 @@ public class Event {
     public Event(){}
     public void addUser(User user){
             users.add(user);
+    }
+    public void addTask(Task task){
+        tasks.add(task);
     }
 }
