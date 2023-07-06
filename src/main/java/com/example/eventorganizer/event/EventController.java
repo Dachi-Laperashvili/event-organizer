@@ -75,4 +75,12 @@ public class EventController {
         taskService.create(dto,event.getId());
         return "redirect:/event/{eventId}";
     }
+    @GetMapping("/home/paymentDetails")
+    public String getAllPaymentDetails(Model model) {
+        List<Task> tasks = taskRepository.findAll();
+
+        model.addAttribute("tasks", tasks);
+        return "paymentDetails";
+    }
+
 }

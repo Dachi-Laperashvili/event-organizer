@@ -10,12 +10,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 @Service
 @AllArgsConstructor
 public class TaskService {
     private TaskRepository taskRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
+    private final ContributionService contributionService;
 
     public Task create(TaskDTO dto,Long eventId){
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event not found."));
@@ -27,6 +31,11 @@ public class TaskService {
 
         Task task = new Task(dto.getName(),dto.getState(),event,user,dto.getSpentMoney());
         event.addTask(task);
+
+        BigDecimal spentMoney = dto.getSpentMoney();
+        Map<User, BigDecimal> contributions = contributionService.calculateContributions(event,user,spentMoney);
+        task.setPaymentDetails(contributions);
+
         eventRepository.save(event);
         taskRepository.save(task);
         return task;
