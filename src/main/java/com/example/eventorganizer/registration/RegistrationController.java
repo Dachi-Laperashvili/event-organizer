@@ -18,6 +18,7 @@ public class RegistrationController {
     public String registration(){
         return "registration";
     }
+
     @PostMapping
     public User register(@RequestParam("firstName") String firstName,
                          @RequestParam("lastName") String lastName,

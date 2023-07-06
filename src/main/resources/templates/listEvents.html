@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>List Of Events</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container{
+           margin-top:60px;
+        }
+        #nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: teal;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        ul {
+            display: flex;
+            gap: 1em;
+            font-size: 18px;
+        }
+
+        nav li {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #4c9e9e;
+            border-radius: 5px;
+        }
+
+        a{
+            text-decoration: none;
+            color:#fff;
+        }
+        .event-name{
+            cursor:pointer;
+            color:black;
+        }
+        .participants{
+            list-style:none;
+        }
+        @media(max-width:600px) {
+            .logo{
+                display:none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<nav id="nav-bar" class="navbar">
+    <div class="logo"><a th:href="@{/home}">Event-Organizer</a></div>
+    <ul>
+        <li>
+            <a class="nav-link" th:href="@{/home}">About</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/home/createEvent}">Create Event</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/home/seeAll}">See Events</a>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <h2>List Of Events</h2>
+
+    <hr/>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Admin</th>
+            <th>Participants</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="event: ${events}">
+            <td th:text="${event.id}" />
+            <td>
+                <a th:href="@{'/event/' + ${event.id}}" th:text="${event.name}" class="event-name"></a>
+            </td>
+            <td th:text="${event.description}" />
+            <td th:text="${event.admin.getFirstName() + ' ' + event.admin.getLastName()}" />
+            <td>
+                <ul class="participants">
+                    <li th:each="user: ${event.users}" th:text="${user.firstName + ' ' + user.lastName}"></li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+
+</body>
+
+</html>
