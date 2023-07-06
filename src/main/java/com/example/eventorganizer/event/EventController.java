@@ -18,10 +18,12 @@ public class EventController {
     private EventRepository eventRepository;
     private TaskRepository taskRepository;
     private TaskService taskService;
+
     @RequestMapping(value = "/home/createEvent")
     public String createEvent(){
         return "createEvent";
     }
+
     @PostMapping(path="/home/createEvent")
     public String createEvent(@RequestParam("name") String name,
                               @RequestParam("description") String description){
@@ -30,6 +32,7 @@ public class EventController {
         eventService.create(dto);
         return "redirect:/home";
     }
+
     @GetMapping(path="/home/seeAll")
     public ModelAndView getAll(){
         ModelAndView mav = new ModelAndView("listEvents");
@@ -48,6 +51,7 @@ public class EventController {
         }
         return eventService.addUser(userId, eventId);
     }
+
     @RequestMapping("/event/{eventId}")
     public String showEvent(@PathVariable("eventId") Long eventId,
                             Model model){
@@ -59,6 +63,7 @@ public class EventController {
         model.addAttribute("tasks",tasks);
         return "event"; // event.html file
     }
+
     @RequestMapping("/event/{eventId}/createTask")
     public String createTask(@PathVariable("eventId") Long eventId,
                              @RequestParam("name") String name,
