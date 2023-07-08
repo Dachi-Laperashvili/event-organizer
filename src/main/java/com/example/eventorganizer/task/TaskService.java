@@ -3,6 +3,7 @@ package com.example.eventorganizer.task;
 import com.example.eventorganizer.event.Event;
 import com.example.eventorganizer.event.EventRepository;
 import com.example.eventorganizer.exceptions.EventNotFoundException;
+import com.example.eventorganizer.exceptions.TaskNotFoundException;
 import com.example.eventorganizer.user.User;
 import com.example.eventorganizer.user.UserRepository;
 import lombok.AllArgsConstructor;
@@ -27,17 +28,35 @@ public class TaskService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
-        User user = userRepository.findByEmail(email);
+        User user = null;
 
-        Task task = new Task(dto.getName(),dto.getState(),event,user,dto.getSpentMoney());
+
+        if(dto.getState() != TaskState.UNASSIGNED) {
+            user = userRepository.findByEmail(email);
+        }
+
+        Task task = new Task(dto.getName(),dto.getState(),event,user,new BigDecimal(0));
         event.addTask(task);
-
-        BigDecimal spentMoney = dto.getSpentMoney();
-        Map<User, BigDecimal> contributions = contributionService.calculateContributions(event,user,spentMoney);
-        task.setPaymentDetails(contributions);
 
         eventRepository.save(event);
         taskRepository.save(task);
         return task;
+    }
+    public void update(Long taskId, TaskState newState, BigDecimal spentMoney){
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("Task not Found"));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email);
+
+        task.setState(newState);
+        task.setSpentMoney(spentMoney);
+        task.setUser(user);
+
+        Map<User,BigDecimal> contributions = contributionService.calculateContributions(task.getEvent(),task.getUser(),task.getSpentMoney());
+        task.setPaymentDetails(contributions);
+
+        taskRepository.save(task);
     }
 }

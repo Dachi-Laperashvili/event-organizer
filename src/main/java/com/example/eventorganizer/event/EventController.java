@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -67,11 +66,10 @@ public class EventController {
     @RequestMapping("/event/{eventId}/createTask")
     public String createTask(@PathVariable("eventId") Long eventId,
                              @RequestParam("name") String name,
-                             @RequestParam("state") String state,
-                             @RequestParam("money") BigDecimal moneySpent) {
+                             @RequestParam("state") String state) {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event Not Found!"));
 
-        TaskDTO dto = new TaskDTO(name,TaskState.valueOf(state),moneySpent);
+        TaskDTO dto = new TaskDTO(name,TaskState.valueOf(state));
         taskService.create(dto,event.getId());
         return "redirect:/event/{eventId}";
     }
@@ -82,5 +80,4 @@ public class EventController {
         model.addAttribute("tasks", tasks);
         return "paymentDetails";
     }
-
 }

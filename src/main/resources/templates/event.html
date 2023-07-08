@@ -143,16 +143,23 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
+            <th>Id</th>
             <th>Name</th>
-            <th>Creator</th>
+            <th>User</th>
             <th>State</th>
             <th>Money Spent</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="task:${tasks}">
+            <td th:text="${task.getId()}"></td>
             <td th:text="${task.getName()}"></td>
-            <td th:text="${task.getUser().getFirstName() + ' ' + task.getUser().getLastName()}"></td>
+            <td>
+                <span th:if="${task.getUser()}">
+                  <span th:text="${task.getUser().getFirstName() + ' ' + task.getUser().getLastName()}"></span>
+                </span>
+                <span th:unless="${task.getUser()}">-</span>
+            </td>
             <td th:text="${task.getState()}"></td>
             <td th:text="${task.getSpentMoney()}"></td>
         </tr>
@@ -175,12 +182,33 @@
                     </select>
                     </label>
                 </div>
-                <div class="input-parent">
-                    <label for="money">Money Spent:</label>
-                    <input type="number" id="money" name="money" placeholder="Enter How much money you have spent/will spent for this task:" autofocus="autofocus" required>
-                </div>
                 <div>
                     <button id="confirmBtn" type="submit">Add</button>
+                </div>
+            </form>
+            <form id="update" th:action="@{/updateTask}" method="post">
+                <h1>Update Task:</h1>
+                <div class="input-parent">
+                    <label for="taskId">Task ID:</label>
+                    <input type="text" id="taskId" name="taskId" placeholder="Task ID" autofocus="autofocus" required>
+                </div>
+                <div class="input-parent">
+                    <label for="newState">Task State:
+                        <select id="newState" name="newState">
+                            <option value="IN_PROGRESS">IN_PROGRESS</option>
+                            <option value="CLOSED">CLOSED</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="input-parent">
+                    <label for="money"></label>
+                    <input type="number" id="money" name="money" placeholder="Enter How much Money you spent" required>
+                </div>
+                <div class="input-parent">
+
+                </div>
+                <div>
+                    <button id="updateBtn" type="submit">Update</button>
                 </div>
             </form>
         </div>
