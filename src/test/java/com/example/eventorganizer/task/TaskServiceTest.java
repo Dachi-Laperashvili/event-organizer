@@ -46,7 +46,7 @@ class TaskServiceTest {
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
         when(authentication.getName()).thenReturn(email);
 
-        TaskDTO dto = new TaskDTO("task1",TaskState.UNASSIGNED,new BigDecimal(20));
+        TaskDTO dto = new TaskDTO("task1",TaskState.UNASSIGNED);
         Task task = taskService.create(dto,eventId);
 
         when(userRepository.findByEmail(email)).thenReturn(user);

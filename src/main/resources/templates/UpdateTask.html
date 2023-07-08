@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Task</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        form{
+            width: max-content;
+            margin: 40px auto;
+            font-family: "Segoe UI", sans-serif;
+            padding: 25px 28px;
+        }
+
+        #nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: teal;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        ul {
+            display: flex;
+            gap: 1em;
+            font-size: 18px;
+        }
+
+        nav li {
+            list-style: none;
+            padding: 5px 14px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #4c9e9e;
+            border-radius: 5px;
+        }
+
+        a{
+            text-decoration: none;
+            color:#fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input,select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class = "container">
+    <header>
+        <nav id="nav-bar">
+            <div class="logo"><a th:href="@{/home}">Event-Organizer</a></div>
+            <ul>
+                <li>
+                    <a th:href="@{/home}">About</a>
+                </li>
+                <li>
+                    <a th:href="@{/home/createEvent}">Create Event</a>
+                </li>
+                <li>
+                    <a th:href="@{/home/seeAll}">See Events</a>
+                </li>
+                <li>
+                    <a th:href="@{/home/paymentDetails}">Payment Details</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <form id="main" th:action="@{/updateTask}" method="post">
+        <h1> Update Task:</h1>
+        <div class="input-parent">
+            <label for="taskId">Task State:</label>
+            <input type="number" id="taskId" name="taskId" placeholder="Task ID" autofocus="autofocus" required>
+        </div>
+        <div class="input-parent">
+            <label for="state">Task State:
+                <select id="state" name="state">
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="CLOSED">CLOSED</option>
+                </select>
+            </label>
+        </div>
+        <div class="input-parent">
+            <label for="money">Money Spent:</label>
+            <input type="number" id="money" name="money" placeholder="Enter How Much You Spent" autofocus="autofocus" required>
+        </div>
+        <button type="submit">UPDATE</button>
+    </form>
+</div>
+</body>
+</html>
