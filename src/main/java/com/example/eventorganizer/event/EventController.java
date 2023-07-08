@@ -38,7 +38,10 @@ public class EventController {
         mav.addObject("events",eventRepository.findAll());
         return mav;
     }
-
+    @GetMapping(value="/home/inviteUser")
+    public String invite() {
+            return "addUser";
+    }
     @PostMapping(path="/home/inviteUser")
     public String inviteUser(@RequestParam("userId") Long userId,
                              @RequestParam("eventId") Long eventId,
@@ -46,7 +49,7 @@ public class EventController {
         String errorMessage = eventService.addUser(userId, eventId);
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
-            return "createEvent";
+            return "addUser";
         }
         return eventService.addUser(userId, eventId);
     }
