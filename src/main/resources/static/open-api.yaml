@@ -4,7 +4,7 @@ info:
   description: application which allows group of people to organize an event together
   version: 1.0.0
 paths:
-  /home/createEvent:
+  /home/create-event:
     post:
       summary: Create Event
       requestBody:
@@ -22,13 +22,13 @@ paths:
           description: Event created successfully
         '400':
           description: Invalid request
-  /home/seeAll:
+  /home/see-all:
     get:
       summary: Get all events
       responses:
         '200':
           description: List of events
-  /home/inviteUser:
+  /home/invite-user:
     post:
       summary: Invite User to Event
       requestBody:
@@ -60,7 +60,7 @@ paths:
           description: Event details
         '404':
           description: Event not found
-  /event/{eventId}/createTask:
+  /event/{eventId}/create-task:
     post:
       summary: Create Task
       parameters:
@@ -86,7 +86,27 @@ paths:
           description: Task created successfully
         '400':
           description: Invalid request
-  /home/paymentDetails:
+  /update-task:
+    post:
+      summary: Update Task
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                 taskId:
+                   type: integer
+                 state:
+                   type: string
+                 money:
+                   type: number
+      responses:
+                '200':
+                  description: Task updated successfully
+                '400':
+                  description: Invalid request
+  /home/payment-details:
     get:
       summary: Get Payment Details
       responses:
