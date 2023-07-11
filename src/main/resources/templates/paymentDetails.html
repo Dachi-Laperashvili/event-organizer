@@ -98,6 +98,7 @@
 <ul class="payment">
     <li th:each="task : ${tasks}" th:if="${task.getSpentMoney()} != 0">
         <span class="event-name" th:text="${task.event.name} + ':'"></span>
+        <span class="task-name" th:text="${task.getName()} + ': '"></span>
         <ul class="payment-list">
             <li th:each="payment : ${task.paymentDetails}">
                 <span th:text="${payment.key.firstName + ' ' + payment.key.lastName}"></span> should pay <span th:text="${payment.value} + '$ to ' + ${task.getUser().firstName + ' ' + task.getUser().lastName}"></span>
