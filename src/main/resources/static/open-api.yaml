@@ -79,8 +79,6 @@ paths:
                   type: string
                 state:
                   type: string
-                money:
-                  type: number
       responses:
         '200':
           description: Task created successfully
