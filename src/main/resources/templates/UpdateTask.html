@@ -100,21 +100,21 @@
                     <a th:href="@{/home}">About</a>
                 </li>
                 <li>
-                    <a th:href="@{/home/createEvent}">Create Event</a>
+                    <a th:href="@{/home/create-event}">Create Event</a>
                 </li>
                 <li>
-                    <a th:href="@{/home/seeAll}">See Events</a>
+                    <a th:href="@{/home/see-all}">See Events</a>
                 </li>
                 <li>
-                    <a th:href="@{/home/paymentDetails}">Payment Details</a>
+                    <a th:href="@{/home/payment-details}">Payment Details</a>
                 </li>
             </ul>
         </nav>
     </header>
-    <form id="main" th:action="@{/updateTask}" method="post">
+    <form id="main" th:action="@{/update-task}" method="post">
         <h1> Update Task:</h1>
         <div class="input-parent">
-            <label for="taskId">Task State:</label>
+            <label for="taskId">Task ID:</label>
             <input type="number" id="taskId" name="taskId" placeholder="Task ID" autofocus="autofocus" required>
         </div>
         <div class="input-parent">

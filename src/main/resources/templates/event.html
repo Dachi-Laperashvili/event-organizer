@@ -106,13 +106,13 @@
                 <a class="nav-link" th:href="@{/home}">About</a>
             </li>
             <li>
-                <a class="nav-link" th:href="@{/home/createEvent}">Create Event</a>
+                <a class="nav-link" th:href="@{/home/create-event}">Create Event</a>
             </li>
             <li>
-                <a class="nav-link" th:href="@{/home/seeAll}">See Events</a>
+                <a class="nav-link" th:href="@{/home/see-all}">See Events</a>
             </li>
             <li>
-                <a class="nav-link" th:href="@{/home/paymentDetails}">Payment Details</a>
+                <a class="nav-link" th:href="@{/home/payment-details}">Payment Details</a>
             </li>
         </ul>
     </nav>
@@ -171,14 +171,14 @@
                 <span class="editable" data-taskid="${task.getId()}" data-field="spentMoney" th:text="${task.getSpentMoney()}"></span>
             </td>
             <td>
-                <a th:href="@{/updateTask}" class="btn btn-primary">Update</a>
+                <a th:href="@{/update-task}" class="btn btn-primary">Update</a>
             </td>
         </tr>
         </tbody>
     </table>
     <div>
         <div id="modal">
-            <form id="main" th:action="@{'/event/' + ${event.id} + '/createTask'}" method="post">
+            <form id="main" th:action="@{'/event/' + ${event.id} + '/create-task'}" method="post">
                 <h1> Create Task:</h1>
                 <div class="input-parent">
                     <label for="name">Name:</label>

@@ -12,14 +12,14 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class TaskController {
     private TaskService taskService;
-    @PostMapping(path="/updateTask")
+    @PostMapping(path="/update-task")
     public String updateTask(@RequestParam("taskId") Long taskId,
                            @RequestParam("state") TaskState newState,
                            @RequestParam("money") BigDecimal spentMoney){
          taskService.update(taskId,newState,spentMoney);
-         return "redirect:/home/paymentDetails";
+         return "redirect:/home/payment-details";
     }
-    @GetMapping(value="/updateTask")
+    @GetMapping(value="/update-task")
     public String update(){
         return "UpdateTask";
     }

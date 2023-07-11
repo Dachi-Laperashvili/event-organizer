@@ -35,7 +35,7 @@ public class TaskService {
             user = userRepository.findByEmail(email);
         }
 
-        Task task = new Task(dto.getName(),dto.getState(),event,user,new BigDecimal(0));
+        Task task = new Task(dto.getName(),dto.getState(),event,user, BigDecimal.ZERO);
         event.addTask(task);
 
         eventRepository.save(event);
@@ -44,7 +44,6 @@ public class TaskService {
     }
     public void update(Long taskId, TaskState newState, BigDecimal spentMoney){
         Task task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("Task not Found"));
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
@@ -52,8 +51,9 @@ public class TaskService {
 
         task.setState(newState);
         task.setSpentMoney(spentMoney);
-        task.setUser(user);
-
+        if(task.getUser() == null){
+            task.setUser(user);
+        }
         Map<User,BigDecimal> contributions = contributionService.calculateContributions(task.getEvent(),task.getUser(),task.getSpentMoney());
         task.setPaymentDetails(contributions);
 

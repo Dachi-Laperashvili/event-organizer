@@ -101,18 +101,18 @@
                     <a th:href="@{/home}">About</a>
                 </li>
                 <li>
-                    <a th:href="@{/home/createEvent}">Create Event</a>
+                    <a th:href="@{/home/create-event}">Create Event</a>
                 </li>
                 <li>
-                    <a th:href="@{/home/seeAll}">See Events</a>
+                    <a th:href="@{/home/see-all}">See Events</a>
                 </li>
                 <li>
-                    <a th:href="@{/home/paymentDetails}">Payment Details</a>
+                    <a th:href="@{/home/payment-details}">Payment Details</a>
                 </li>
             </ul>
         </nav>
     </header>
-    <form id="invite" th:action="@{/home/inviteUser}" method="post">
+    <form id="invite" th:action="@{/home/invite-user}" method="post">
         <div th:if="${errorMessage}" class="error-message">
             <p th:text="${errorMessage}"></p>
         </div>
