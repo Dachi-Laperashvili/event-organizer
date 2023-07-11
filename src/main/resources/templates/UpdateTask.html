@@ -2,7 +2,7 @@
 <html lang="eng">
 <head>
     <meta charset="UTF-8">
-    <title>Create An Event</title>
+    <title>Update Task</title>
     <style>
         * {
             padding: 0;
@@ -70,14 +70,13 @@
             margin-bottom: 10px;
         }
 
-        input {
+        input,select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             margin-bottom: 10px;
         }
-
         button {
             background-color: #4CAF50;
             color: #fff;
@@ -112,17 +111,25 @@
             </ul>
         </nav>
     </header>
-    <form id="main" th:action="@{/home/create-event}" method="post">
-        <h1> Create An Event:</h1>
+    <form id="main" th:action="@{/update-task}" method="post">
+        <h1> Update Task:</h1>
         <div class="input-parent">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Event Name" autofocus="autofocus" required>
+            <label for="taskId">Task ID:</label>
+            <input type="number" id="taskId" name="taskId" placeholder="Task ID" autofocus="autofocus" required>
         </div>
         <div class="input-parent">
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" placeholder="Event Description" required>
+            <label for="state">Task State:
+                <select id="state" name="state">
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="CLOSED">CLOSED</option>
+                </select>
+            </label>
         </div>
-        <button type="submit">CREATE</button>
+        <div class="input-parent">
+            <label for="money">Money Spent:</label>
+            <input type="number" id="money" name="money" placeholder="Enter How Much You Spent" autofocus="autofocus" required>
+        </div>
+        <button type="submit">UPDATE</button>
     </form>
 </div>
 </body>

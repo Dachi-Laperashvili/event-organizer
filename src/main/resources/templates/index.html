@@ -56,6 +56,31 @@
       text-align: center;
       margin-bottom: 20px;
     }
+    .about-info{
+      text-align:center;
+    }
+    section{
+      margin-top:50px;
+      display:grid;
+    }
+    #features{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px,1fr));
+      gap: 15px;
+    }
+    .features-item{
+      padding:1em;
+    }
+    .card{
+      margin:auto;
+      background:#fff;
+      padding:3.1em 1.25em;
+      text-align:center;
+      box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.15);
+      border:1px solid black;
+      border-radius: 0.5em;
+      cursor: pointer;
+    }
     #logout-btn {
       position: absolute;
       bottom: 2%;
@@ -80,7 +105,7 @@
   </style>
 </head>
 <body>
-<div>
+<div class="container">
   <header>
     <nav id="nav-bar">
       <div class="logo"><a th:href="@{/home}">Event-Organizer</a></div>
@@ -89,17 +114,49 @@
           <a class="nav-link" th:href="@{/home}">About</a>
         </li>
         <li>
-          <a class="nav-link" th:href="@{/home/createEvent}">Create Event</a>
+          <a class="nav-link" th:href="@{/home/create-event}">Create Event</a>
         </li>
         <li>
-          <a class="nav-link" th:href="@{/home/seeAll}">See Events</a>
+          <a class="nav-link" th:href="@{/home/see-all}">See Events</a>
+        </li>
+        <li>
+          <a class="nav-link" th:href="@{/home/payment-details}">Payment Details</a>
         </li>
       </ul>
     </nav>
   </header>
   <section id="about">
-    <h1 class="header">about</h1>
-    <div class="about-info">Event organizer application, which lets some group of people organize an event.</div>
+    <h1 class="header">Event Organizer</h1>
+    <p class="about-info">Event organizer application, which lets some group of people organize an event.</p>
+  </section>
+  <section id="key-features">
+    <h1>Key features:</h1>
+    <div id="features">
+      <div class="features-item">
+        <div class="card">
+          <h2>Event Creation</h2>
+          <p>Users can create and set up events.This feature allows users to efficiently plan their events.</p>
+        </div>
+        </div>
+      <div class="features-item">
+          <div class="card">
+            <h2>User Collaboration</h2>
+            <p>Users can invite other participants to join the event and collaborate with them.</p>
+          </div>
+      </div>
+      <div class="features-item">
+        <div class="card">
+          <h2>Task Management</h2>
+          <p>The application offers task management,allowing users to create and track tasks.</p>
+        </div>
+      </div>
+      <div class="features-item">
+        <div class="card">
+          <h2>Payment details</h2>
+          <p>Application tracks and manages payment details associated with tasks and view payment summaries.</p>
+        </div>
+      </div>
+    </div>
   </section>
   <div>
     <button id="logout-btn"><a th:href="@{/logout}">Logout</a></button>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Details</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        #nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: teal;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1em;
+            font-size: 18px;
+        }
+
+        nav li {
+            list-style: none;
+            padding: 5px 14px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #4c9e9e;
+            border-radius: 5px;
+        }
+
+        a{
+            text-decoration: none;
+            color:#fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .payment{
+            font-size: 25px;
+        }
+        .payment-list{
+            list-style:none;
+            margin-left:40px;
+            margin-top:20px;
+            margin-bottom:20px;
+            padding:0;
+        }
+        .payment-list li{
+            margin-bottom:10px;
+        }
+        .event-name{
+            margin-left:20px;
+        }
+    </style>
+</head>
+<body>
+<nav id="nav-bar" class="navbar">
+    <div class="logo"><a th:href="@{/home}">Event-Organizer</a></div>
+    <ul>
+        <li>
+            <a class="nav-link" th:href="@{/home}">About</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/home/create-event}">Create Event</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/home/see-all}">See Events</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/home/payment-details}">Payment Details</a>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+<h1>Payment Details</h1>
+
+<ul class="payment">
+    <li th:each="task : ${tasks}" th:if="${task.getSpentMoney()} != 0">
+        <span class="event-name" th:text="${task.event.name} + ':'"></span>
+        <span class="task-name" th:text="${task.getName()} + ': '"></span>
+        <ul class="payment-list">
+            <li th:each="payment : ${task.paymentDetails}">
+                <span th:text="${payment.key.firstName + ' ' + payment.key.lastName}"></span> should pay <span th:text="${payment.value} + '$ to ' + ${task.getUser().firstName + ' ' + task.getUser().lastName}"></span>
+            </li>
+        </ul>
+    </li>
+</ul>
+</div>
+</body>
+</html>

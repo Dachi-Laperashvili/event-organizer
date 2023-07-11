@@ -77,10 +77,13 @@
             <a class="nav-link" th:href="@{/home}">About</a>
         </li>
         <li>
-            <a class="nav-link" th:href="@{/home/createEvent}">Create Event</a>
+            <a class="nav-link" th:href="@{/home/create-event}">Create Event</a>
         </li>
         <li>
-            <a class="nav-link" th:href="@{/home/seeAll}">See Events</a>
+            <a class="nav-link" th:href="@{/home/see-all}">See Events</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{/home/payment-details}">Payment Details</a>
         </li>
     </ul>
 </nav>
@@ -112,6 +115,7 @@
                 <ul class="participants">
                     <li th:each="user: ${event.users}" th:text="${user.firstName + ' ' + user.lastName}"></li>
                 </ul>
+                <a th:href="@{/home/invite-user}" class="btn btn-primary">Add</a>
             </td>
         </tr>
         </tbody>

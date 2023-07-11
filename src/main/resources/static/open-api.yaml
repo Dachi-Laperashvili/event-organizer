@@ -1,0 +1,112 @@
+openapi: 3.0.0
+info:
+  title: Event Organizer Application
+  description: application which allows group of people to organize an event together
+  version: 1.0.0
+paths:
+  /home/create-event:
+    post:
+      summary: Create Event
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Event created successfully
+        '400':
+          description: Invalid request
+  /home/see-all:
+    get:
+      summary: Get all events
+      responses:
+        '200':
+          description: List of events
+  /home/invite-user:
+    post:
+      summary: Invite User to Event
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                eventId:
+                  type: integer
+      responses:
+        '200':
+          description: User invited successfully
+        '400':
+          description: Invalid request
+  /event/{eventId}:
+    get:
+      summary: Get Event by ID
+      parameters:
+        - in: path
+          name: eventId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Event details
+        '404':
+          description: Event not found
+  /event/{eventId}/create-task:
+    post:
+      summary: Create Task
+      parameters:
+        - in: path
+          name: eventId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                state:
+                  type: string
+      responses:
+        '200':
+          description: Task created successfully
+        '400':
+          description: Invalid request
+  /update-task:
+    post:
+      summary: Update Task
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                 taskId:
+                   type: integer
+                 state:
+                   type: string
+                 money:
+                   type: number
+      responses:
+                '200':
+                  description: Task updated successfully
+                '400':
+                  description: Invalid request
+  /home/payment-details:
+    get:
+      summary: Get Payment Details
+      responses:
+        '200':
+          description: Payment details

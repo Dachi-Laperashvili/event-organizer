@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Entity
 @Table(name = "tasks")
@@ -24,6 +25,11 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskState state;
     private BigDecimal spentMoney;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="task_payment_details")
+    @MapKeyJoinColumn(name= "user_id")
+    @Column(name= "contribution")
+    private Map<User, BigDecimal> paymentDetails;
 
     public Task(String name,TaskState state,Event event,User user,BigDecimal spentMoney){
         this.name = name;

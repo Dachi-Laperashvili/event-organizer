@@ -5,8 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.math.BigDecimal;
-
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -14,6 +12,4 @@ import java.math.BigDecimal;
 public class TaskDTO {
     private String name;
     private TaskState state;
-    private BigDecimal spentMoney;
-
 }

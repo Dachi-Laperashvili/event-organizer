@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -19,35 +18,38 @@ public class EventController {
     private TaskRepository taskRepository;
     private TaskService taskService;
 
-    @RequestMapping(value = "/home/createEvent")
+    @RequestMapping(value = "/home/create-event")
     public String createEvent(){
         return "createEvent";
     }
 
-    @PostMapping(path="/home/createEvent")
+    @PostMapping(path="/home/create-event")
     public String createEvent(@RequestParam("name") String name,
                               @RequestParam("description") String description){
 
         EventDTO dto = new EventDTO(name, description);
         eventService.create(dto);
-        return "redirect:/home";
+        return "redirect:/home/see-all";
     }
 
-    @GetMapping(path="/home/seeAll")
+    @GetMapping(path="/home/see-all")
     public ModelAndView getAll(){
         ModelAndView mav = new ModelAndView("listEvents");
         mav.addObject("events",eventRepository.findAll());
         return mav;
     }
-
-    @PostMapping(path="/home/inviteUser")
+    @GetMapping(value="/home/invite-user")
+    public String invite() {
+            return "addUser";
+    }
+    @PostMapping(path="/home/invite-user")
     public String inviteUser(@RequestParam("userId") Long userId,
                              @RequestParam("eventId") Long eventId,
                              Model model) {
         String errorMessage = eventService.addUser(userId, eventId);
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
-            return "createEvent";
+            return "addUser";
         }
         return eventService.addUser(userId, eventId);
     }
@@ -64,15 +66,21 @@ public class EventController {
         return "event"; // event.html file
     }
 
-    @RequestMapping("/event/{eventId}/createTask")
+    @PostMapping("/event/{eventId}/create-task")
     public String createTask(@PathVariable("eventId") Long eventId,
                              @RequestParam("name") String name,
-                             @RequestParam("state") String state,
-                             @RequestParam("money") BigDecimal moneySpent) {
+                             @RequestParam("state") String state) {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event Not Found!"));
 
-        TaskDTO dto = new TaskDTO(name,TaskState.valueOf(state),moneySpent);
+        TaskDTO dto = new TaskDTO(name,TaskState.valueOf(state));
         taskService.create(dto,event.getId());
         return "redirect:/event/{eventId}";
+    }
+    @GetMapping("/home/payment-details")
+    public String getAllPaymentDetails(Model model) {
+        List<Task> tasks = taskRepository.findAll();
+
+        model.addAttribute("tasks", tasks);
+        return "paymentDetails";
     }
 }

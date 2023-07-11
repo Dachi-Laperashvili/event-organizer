@@ -112,17 +112,20 @@
             </ul>
         </nav>
     </header>
-    <form id="main" th:action="@{/home/create-event}" method="post">
-        <h1> Create An Event:</h1>
+    <form id="invite" th:action="@{/home/invite-user}" method="post">
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+        <h1>Add User:</h1>
         <div class="input-parent">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Event Name" autofocus="autofocus" required>
+            <label for="userId">User ID:</label>
+            <input type="text" id="userId" name="userId" placeholder="User ID" autofocus="autofocus" required>
         </div>
         <div class="input-parent">
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" placeholder="Event Description" required>
+            <label for="eventId">Event ID:</label>
+            <input type="text" id="eventId" name="eventId" placeholder="Event ID" required>
         </div>
-        <button type="submit">CREATE</button>
+        <button type="submit">ADD</button>
     </form>
 </div>
 </body>
